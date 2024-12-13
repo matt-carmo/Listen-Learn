@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Books {
+  id    Int    @id @default(autoincrement())
+  title String @unique
+  BookPart BookPart[]
+}
+model BookPart{
+  id Int @id @default(autoincrement())
+  title String
+  bookId Int
+  book Books @relation(fields: [bookId], references: [id])
+  prhases Phrases[]
+}
+model Phrases {
+  id Int @id @default(autoincrement())
+  textOriginal String
+  textTranslation String
+  audio String
+  bookPartId Int
+  bookPart BookPart @relation(fields: [bookPartId], references: [id])
+}

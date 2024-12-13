@@ -4,9 +4,8 @@ import { Input } from "@/components/ui/input";
 import { PlayAudio } from "@/components/ui/playAudio";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
 
-import { use, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { FaX } from "react-icons/fa6";
 
 export default function DetailsGradedReader(context: any) {
@@ -17,11 +16,9 @@ export default function DetailsGradedReader(context: any) {
   const [original, setOriginal] = useState("");
   const bookPartId = searchParams?.get("bookPartId");
   const [warning, setWarning] = useState(true);
-  console.log(bookPartId);
+
   const [phrases, setPhrases] = useState<any>([]);
-  function createPhrases() {
-    console.log(bookName);
-  }
+
   const [file, setFile] = useState<any>(null);
 
   function handleChange(event: any) {

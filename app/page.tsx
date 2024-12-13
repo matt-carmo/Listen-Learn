@@ -1,8 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { parseSlug } from "./utils/parse-slug";
 import { Header } from "./components/header";

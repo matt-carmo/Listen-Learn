@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 import { Input } from "@/components/ui/input";
 import { Prisma } from "@prisma/client";
-import Link from "next/link";
+
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -15,7 +15,7 @@ interface GradedReaderProps
 export default function GradedReader() {
   const bookId = parseInt(useSearchParams()?.get("bookId") as string);
 
-  console.log(bookId);
+
   const { slug }: any = useParams();
   const [data, setData] = useState<GradedReaderProps[]>([]);
   const [bookName, setBookName] = useState("");

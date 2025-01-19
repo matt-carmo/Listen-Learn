@@ -1,0 +1,1 @@
+export const getAddressIp = window.location.hostname;

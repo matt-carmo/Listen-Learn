@@ -1,6 +1,7 @@
 "use client";
 import { CardReader } from "@/app/components/cardReader";
 import { Header } from "@/app/components/header";
+import { getAddressIp } from "@/app/utils/getAddressIp";
 import { parseSlug } from "@/app/utils/parse-slug";
 import { Button } from "@/components/ui/button";
 
@@ -37,7 +38,7 @@ export default function GradedReader() {
   const getAllGreadedReadersPartById = async (bookId: number) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/reader-part/?bookId=${bookId}`,
+        `/api/reader-part/?bookId=${bookId}`,
         {
           method: "GET",
           headers: {

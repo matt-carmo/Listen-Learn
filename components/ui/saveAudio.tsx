@@ -12,7 +12,7 @@ export function SaveAudio() {
 
   function handleSubmit(event:any) {
     event.preventDefault();
-    const url = "http://localhost:3000/uploadAudio";
+    const url = "${getAddressIp}:3000/uploadAudio";
     const formData = new FormData();
     formData.append("file", file);
     formData.append("fileName", file.name);
@@ -21,7 +21,7 @@ export function SaveAudio() {
         "content-type": "multipart/form-data",
       },
     };
-    axios.post(`localhost:3000/upload/audio`, formData, config).then((response) => {
+    axios.post(`192.168.1.19:3000/upload/audio`, formData, config).then((response) => {
       console.log(response.data);
     });
   }

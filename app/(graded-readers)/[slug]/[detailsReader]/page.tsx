@@ -1,16 +1,16 @@
 "use client";
+import { getAddressIp } from "@/app/utils/getAddressIp";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { PlayAudio } from "@/components/ui/playAudio";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaX } from "react-icons/fa6";
 
 export default function DetailsGradedReader() {
-
-
   const searchParams = useSearchParams();
   const [translation, setTranslation] = useState("");
   const [original, setOriginal] = useState("");
@@ -20,6 +20,8 @@ export default function DetailsGradedReader() {
   const [phrases, setPhrases] = useState<any>([]);
 
   const [file, setFile] = useState<any>(null);
+
+  const [checkedOnlyOriginal, setCheckedOnlyOriginal] = useState(false);
 
   function handleChange(event: any) {
     setFile(event.target.files[0]);
@@ -43,7 +45,11 @@ export default function DetailsGradedReader() {
     };
     console.log("file");
     axios
-      .post(`http://localhost:3000/api/reader-parts/phrase`, formData, config)
+      .post(
+        `/api/reader-parts/phrase`,
+        formData,
+        config
+      )
       .then((response) => {
         setPhrases([...phrases, response.data]);
         setOriginal("");
@@ -56,7 +62,7 @@ export default function DetailsGradedReader() {
   const getAllPhrases = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/reader-parts/phrases/${bookPartId}`
+        `/api/reader-parts/phrases/${bookPartId}`
       );
 
       setPhrases(response.data);
@@ -69,13 +75,17 @@ export default function DetailsGradedReader() {
   }, []);
   return (
     <div className="p-8 pb-16 gap-16 sm:p-10  font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col items-center w-full max-w-2xl mx-auto ">
-        {warning && <div className="flex  w-full p-4 justify-between border bg-gray-200 rounded-lg mb-2 text-gray-800 font-bold">
-          <p>
-            Para deixar o texto <b>azul</b> envolva em <code>*TEXTO*</code>
-          </p>
-          <button onClick={() => setWarning(false)}><FaX className="text-red-700"/></button>
-        </div>}
+      <main className="flex flex-col items-center w-full max-w-3xl mx-auto ">
+        {warning && (
+          <div className="flex  w-full p-4 justify-between border bg-gray-200 rounded-lg mb-2 text-gray-800 font-bold">
+            <p>
+              Para deixar o texto <b>azul</b> envolva em <code>*TEXTO*</code>
+            </p>
+            <button onClick={() => setWarning(false)}>
+              <FaX className="text-red-700" />
+            </button>
+          </div>
+        )}
         <div className="flex w-full">
           <div className="flex w-full max-w-sm items-center space-x-2">
             <div className="flex w-full flex-col space-y-2">
@@ -104,28 +114,40 @@ export default function DetailsGradedReader() {
                 <Button className="mt-3" onClick={handleSubmit} type="submit">
                   Create
                 </Button>
+                <div className="flex items-center space-x-2 mt-3">
+                  <Checkbox onCheckedChange={() => setCheckedOnlyOriginal(!checkedOnlyOriginal)} id="only-orignal" name="only-orignal"  />
+                  <label
+                    htmlFor="only-orignal"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                   Only original
+                  </label>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <ul className="w-full mt-5 flex flex-col gap-4">
+        <ul className="w-full mt-5 flex flex-col">
           {phrases.length > 0 &&
             phrases.map((book: any, index: number) => (
               <li key={index}>
-                <div className="flex justify-between gap-4 items-center bg-slate-100 p-3 rounded-lg">
+                <div className="flex justify-between gap-4 py-4 border-dotted items-center  border-b-2">
                   <div className="flex flex-col font-semibold">
-                    <p
+                  
+                      <p
                       dangerouslySetInnerHTML={{ __html: book.textOriginal }}
                     ></p>
+                    {!checkedOnlyOriginal && (
                     <p
                       dangerouslySetInnerHTML={{
                         __html: book.textTranslation,
                       }}
                     ></p>
+                    )}
                   </div>
 
                   <PlayAudio
-                    src={`http://localhost:3000/audio/${book.audio}`}
+                    src={`/audio/${book.audio}`}
                   />
                 </div>
               </li>

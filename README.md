@@ -1,5 +1,6 @@
 
 ---
+![Desktop Screenshot](/screenshots/desktop.png)
 
 # 📝 Listen & 🌍 Learn
 

@@ -1,7 +1,7 @@
 
 ---
 
-# 🏡 Listen & Learn
+# 📝 Listen & 🌍 Learn
 
 This project was developed for personal use, where I can study english. transcribe texts with sentences, listen to audio, and translate.  
 ---

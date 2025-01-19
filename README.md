@@ -1,6 +1,6 @@
 
 ---
-![Desktop Screenshot](/screenshots/desktop.png)
+![Desktop Screenshot](/public/screenshots/desktop.png)
 
 # 📝 Listen & 🌍 Learn
 

@@ -1,8 +1,10 @@
 
+
+# 📝 Listen & 🌍 Learn
+
 ---
 ![Desktop Screenshot](/public/screenshots/desktop.png)
 
-# 📝 Listen & 🌍 Learn
 
 This project was developed for personal use, where I can study english. transcribe texts with sentences, listen to audio, and translate.  
 ---

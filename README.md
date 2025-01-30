@@ -8,10 +8,6 @@
 
 This project was developed for personal use, where I can study english. transcribe texts with sentences, listen to audio, and translate.  
 ---
-
-Sua seção está bem estruturada, mas pode ser ligeiramente ajustada para melhorar a clareza e a gramática. Aqui está uma versão refinada:
-
----
 ## 🌟 **Main Features**
 
 -  **Create Texts**:

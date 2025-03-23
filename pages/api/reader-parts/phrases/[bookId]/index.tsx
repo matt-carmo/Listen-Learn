@@ -6,6 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET" && req.query.bookId) {
+    console.log(req.query)
     const readers = await prisma.phrases.findMany({
       where: {
         bookPartId: Number(req.query.bookId),

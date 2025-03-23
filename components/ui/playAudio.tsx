@@ -6,7 +6,7 @@ export function PlayAudio(props: any) {
 
   return (
     <>
-      <button className="rounded-full bg-sky-500 p-2.5 flex items-center justify-center" onClick={() => audioRef.current?.play()}>
+      <button className="rounded-full relative z-50 bg-sky-500 p-2.5 flex items-center justify-center" onClick={() => audioRef.current?.play()}>
         {isPlaying ? (
             <FaPause className="text-xl text-white " />
         ) : (

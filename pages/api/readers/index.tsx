@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   if (req.method === "GET" && !req.query.bookId) {
 
-
+    console.log(`readers`)
     const readers = await prisma.books.findMany();
     return res.status(200).json(readers);
   }
@@ -19,6 +19,7 @@ export default async function handler(
         bookId: Number(req.query.bookId),
 
     }});
+    console.log(`readers`)
     return res.status(200).json(readers);
   }
 

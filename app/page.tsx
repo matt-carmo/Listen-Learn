@@ -23,8 +23,9 @@ export default function Home() {
         },
         body: JSON.stringify({ title: bookName }),
       }).then((res) => res.json()).then((data) => data);
+        console.log(reader)
       setBooks([...books, reader]);
-      console.log(reader)
+
       
     } catch (error) {
       alert(error);
@@ -35,7 +36,6 @@ export default function Home() {
   async function getBooks() {
     try {
       const books = await fetch(`/api/readers/`).then((res) => res.json()).then((data) => data);
-      console.log(books)
       setBooks(books);
     } catch (error) {
       alert(error);

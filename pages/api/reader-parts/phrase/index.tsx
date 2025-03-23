@@ -17,14 +17,26 @@ export default async function handler(
   if (req.method === "POST") {
     const form = formidable({ multiples: false }); // Permite apenas um arquivo
 
-    form.parse(req, (err, fields, files: any) => {
+    form.parse(req, async (err, fields, files: any) => {
       if (err) {
         console.error("Error parsing the file:", err);
         return res.status(500).json({ error: "Failed to process the file" });
       }
 
-      const file: any = files.file[0];
-
+      const file: any = files?.file && files.file[0];
+  
+      if(!file && fields.textOriginal && fields.textTranslation && fields.bookPartId){
+        const data = await prisma.phrases.create({
+          data: {
+            textOriginal: fields.textOriginal[0],
+            textTranslation: fields.textTranslation[0],
+            audio: "null",
+            bookPartId: Number(fields.bookPartId[0]),
+          },
+        })
+   
+        return res.status(200).json(data);
+      }
       if (file && file.filepath) {
         const audioDir = path.join("public", "audio");
 

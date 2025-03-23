@@ -5,12 +5,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "GET" && req.body) {
+  if (req.method === "GET" && req.query.bookId) {
     const readers = await prisma.bookPart.findMany({
       where: {
-        bookId: req.body.bookId,
+        bookId: parseInt(req.query.bookId as string),
       },
     });
+
     return res.status(200).json(readers);
   }
   if (req.method === "POST") {

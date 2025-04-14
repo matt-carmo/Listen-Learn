@@ -1,0 +1,20 @@
+meta {
+  name: create
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3001/api/file-audio/1df474fc-6c1b-4c77-861f-a3e8c2dc8f70
+  body: multipartForm
+  auth: inherit
+}
+
+headers {
+  Content-Type: multipart/form-data
+}
+
+body:multipart-form {
+  : @file()
+  : @file(/media/bececat-matt/BC0E73DA0E738BE0/Games/Mairo Vergara 5.0/02 - Mineração/Módulo 12/A Change in Routine 002/AUDIO A Change in Routine 02 Kathy.mp3)
+}

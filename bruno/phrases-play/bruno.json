@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "phrases-play",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

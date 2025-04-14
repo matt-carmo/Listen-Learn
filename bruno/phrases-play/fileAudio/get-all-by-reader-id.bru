@@ -1,0 +1,11 @@
+meta {
+  name: get-all-by-reader-id
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3001/api/file-audio/1df474fc-6c1b-4c77-861f-a3e8c2dc8f70
+  body: multipartForm
+  auth: inherit
+}

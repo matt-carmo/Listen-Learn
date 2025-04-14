@@ -1,0 +1,30 @@
+services:
+  backend:
+    build: .
+    environment:
+      NODE_ENV: development
+      PORT: ${PORT}
+      DATABASE_URL: postgres://postgres:password@db/postgres
+    ports:
+      - "${PORT}:${PORT}"
+      - "5555:5555"
+    volumes:
+      - ./back-end:/usr/src/app
+    command: npm run dev
+    depends_on:
+      - db
+  db: 
+    image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database:/var/lib/postgresql/data
+
+volumes:
+  backend:
+  db:

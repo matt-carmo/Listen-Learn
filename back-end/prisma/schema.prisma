@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  binaryTargets = "linux-musl-openssl-3.0.x"
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model GradedReader {
+  id        String    @id @default(uuid())
+  title     String
+  parts     ReaderPart[]
+  deleted   Boolean @default(false)
+  fileAudio FileAudio[]
+}
+
+model ReaderPart {
+  id        String    @id @default(uuid())
+  title     String
+  gradedReader GradedReader? @relation(fields: [gradedReaderId], references: [id])
+  gradedReaderId String
+  contents ContentBlock[]
+  deleted   Boolean @default(false)
+}
+model ContentBlock {
+  id        String    @id @default(uuid())
+  originalText String
+  translatedText String
+  audioUrl String?
+  order Int?
+  part ReaderPart? @relation(fields: [partId], references: [id])
+  partId String?
+}
+model FileAudio {
+  id        String    @id @default(uuid())
+  url       String
+  fileName  String
+  reader    GradedReader? @relation(fields: [readerId], references: [id])
+  readerId String?
+}

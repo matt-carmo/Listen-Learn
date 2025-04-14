@@ -1,0 +1,17 @@
+meta {
+  name: get
+  type: http
+  seq: 1
+}
+
+delete {
+  url: http://localhost:3001/api/parts/078e6826-bd56-455c-b352-d7d86b38e73e
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Part One Test"
+  }
+}

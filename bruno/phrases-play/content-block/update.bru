@@ -1,0 +1,17 @@
+meta {
+  name: update
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3001/api/content-blocks/7dc556c8-92ed-425f-8547-e30385e89d65
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "audioUrl": "Teste"  
+  }
+}

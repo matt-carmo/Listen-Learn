@@ -1,0 +1,17 @@
+meta {
+  name: readAll
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3001/api/content-blocks/4b0308ba-6277-4082-a914-0aefc056b4d3
+  body: multipartForm
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Part One Test"
+  }
+}

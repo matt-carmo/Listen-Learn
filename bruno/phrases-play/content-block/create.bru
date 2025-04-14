@@ -1,0 +1,18 @@
+meta {
+  name: create
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3001/api/content-blocks/a9065ee2-2894-4219-b99f-1c2d874646e8
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "originalText": "Teste",
+    "translatedText": "Test"
+  }
+}

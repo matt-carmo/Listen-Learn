@@ -3,7 +3,7 @@ services:
     image: nginxproxy/nginx-proxy
     container_name: nginx-proxy
     environment:
-      - CLIENT_MAX_BODY_SIZE=10M
+      - CLIENT_MAX_BODY_SIZE=100M
     ports:
       - "80:80"
       - "443:443"

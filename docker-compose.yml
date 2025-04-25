@@ -2,6 +2,8 @@ services:
   proxy: 
     image: nginxproxy/nginx-proxy
     container_name: nginx-proxy
+    environment:
+      - CLIENT_MAX_BODY_SIZE=10M
     ports:
       - "80:80"
       - "443:443"
@@ -21,7 +23,6 @@ services:
      image: nginxproxy/acme-companion
      container_name: nginx-proxy-acme
      environment:
-      - CLIENT_MAX_BODY_SIZE=10M
       - DEFAULT_EMAIL=matheus2018i@gmail.com
      volumes_from:
       - proxy

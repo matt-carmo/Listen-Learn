@@ -2,14 +2,13 @@ import { Header } from "./components/header";
 import { CardReader } from "./components/cardReader";
 import { GradedReader } from "@/interfaces/phrase";
 import { baseUrl } from "@/lib/utils";
-import axios from "axios";
 import CreateReader from "./components/createReader";
 
 export default async function Home() {
-  const data = await axios.get(`${baseUrl}/graded-readers`, )
-  const gradedReaders: GradedReader[] = data.data;
-
-
+  const data = await fetch(`${baseUrl}/graded-readers`, { 
+    cache: 'no-store' 
+  });
+  const gradedReaders: GradedReader[] = await data.json();
   return (
     <>
       <Header title="Listen & Learn" />     

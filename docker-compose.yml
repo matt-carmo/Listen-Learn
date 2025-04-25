@@ -1,10 +1,46 @@
 services:
+  proxy: 
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - dhparam:/etc/nginx/dhparam
+      - vhost:/etc/nginx/vhost.d
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+    labels:
+      - "com.github.nginx-proxy.docker-gen"
+    networks:
+      - proxy_net
+  
+  letsencrypt:
+     image: nginxproxy/acme-companion
+     container_name: nginx-proxy-acme
+     environment:
+      - DEFAULT_EMAIL=matheus2018i@gmail.com
+     volumes_from:
+      - proxy
+     volumes:
+      - certs:/etc/nginx/certs:rw
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+     networks:
+      - proxy_net
+
   backend:
     build: .
     environment:
       NODE_ENV: development
       PORT: ${PORT}
       DATABASE_URL: postgres://postgres:password@db/postgres
+      LETSENCRYPT_HOST: ec2-3-83-166-227.compute-1.amazonaws.com
+      VIRTUAL_HOST: ec2-3-83-166-227.compute-1.amazonaws.com
+      LETSENCRYPT_EMAIL: matheus2018i@gmail.com
+      VIRTUAL_PORT: 3001
     ports:
       - "${PORT}:${PORT}"
       - "5555:5555"
@@ -13,6 +49,9 @@ services:
     command: npm run dev
     depends_on:
       - db
+    networks:
+      - proxy_net
+    restart: "always"
   db: 
     image: postgres:alpine
     environment:
@@ -24,7 +63,15 @@ services:
       - "5432:5432"
     volumes:
       - ./database:/var/lib/postgresql/data
-
+    networks:
+      - proxy_net
+networks:
+  proxy_net:
 volumes:
   backend:
+  letsencrypt:
+  dhparam:
+  vhost:
+  certs:
+  proxy:
   db:

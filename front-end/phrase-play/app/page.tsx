@@ -19,7 +19,7 @@ export default async function Home() {
              <CreateReader />
             </div>
           </div>
-          <ul className="w-full mt-5">
+          <ul className="w-full mt-5 flex flex-col gap-2.5">
             {(gradedReaders.length > 0) &&
               gradedReaders.map((book, index) => (
                 <CardReader key={index} id={book.id} title={book.title} href={`graded-reader/${book.id}`} />

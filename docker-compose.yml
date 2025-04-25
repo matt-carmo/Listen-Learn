@@ -75,3 +75,4 @@ volumes:
   certs:
   proxy:
   db:
+  html:

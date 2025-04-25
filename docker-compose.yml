@@ -15,6 +15,7 @@ services:
       - "com.github.nginx-proxy.docker-gen"
     networks:
       - proxy_net
+    restart: "always"
   
   letsencrypt:
      image: nginxproxy/acme-companion

@@ -11,13 +11,7 @@ fastify.register(import('./plugins/prisma'))
 fastify.register(import('./routes/index'), {
   prefix: '/api',
 })
-//max file size 10mb
-fastify.register(import('@fastify/multipart'), {
-  limits: {
-    fileSize: 10 * 1024 * 1024, // 10 MB
-  },
-  attachFieldsToBody: true,
-})
+
 fastify.register(cors, {
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],

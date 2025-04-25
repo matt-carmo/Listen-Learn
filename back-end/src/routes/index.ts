@@ -11,8 +11,8 @@ import fileAudio from "./v1/fileAudio.routes";
 export default async function (fastify: FastifyInstance) {
   fastify.register(fastifyMultipart, {
     limits: {
-      fileSize: 10 * 1024 * 1024, // Limite de 10MB para arquivos de áudio
-      files: 20 // Permitir apenas 1 arquivo por vez
+      fileSize: 15 * 1024 * 1024, // Limite de 10MB para arquivos de áudio
+      files: 20
     }
   });
 

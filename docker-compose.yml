@@ -21,6 +21,7 @@ services:
      image: nginxproxy/acme-companion
      container_name: nginx-proxy-acme
      environment:
+      - CLIENT_MAX_BODY_SIZE=10M
       - DEFAULT_EMAIL=matheus2018i@gmail.com
      volumes_from:
       - proxy

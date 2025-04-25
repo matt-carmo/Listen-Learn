@@ -5,10 +5,22 @@ import { baseUrl } from "@/lib/utils";
 import CreateReader from "./components/createReader";
 
 export default async function Home() {
-  const data = await fetch(`${baseUrl}/graded-readers`, { 
-    cache: 'no-store' 
-  });
-  const gradedReaders: GradedReader[] = await data.json();
+  let gradedReaders: GradedReader[] = [];
+  let err: boolean = false
+  try {
+    const data = await fetch(`${baseUrl}/graded-readers`, { 
+      cache: 'no-store' 
+    });
+    if (data.ok) {
+      gradedReaders = await data.json();
+    } else {
+      console.error("Error fetching graded readers:", data.statusText);
+    }
+  } catch (error) {
+    err = true
+    console.error("Error fetching graded readers:", error);
+  }
+ 
   return (
     <>
       <Header title="Listen & Learn"/>     
@@ -20,6 +32,18 @@ export default async function Home() {
             </div>
           </div>
           <ul className="w-full mt-5 flex flex-col gap-2.5">
+            {(err) && (
+              <div className="flex flex-col   w-full h-full">
+                <h1 className="text-xl font-bold text-red-500">Error fetching graded readers</h1>
+                <p className="text-lg text-red-500">Please try again later.</p>
+              </div>
+            )}
+            {(gradedReaders.length === 0 && !err) && (
+              <div className="flex flex-col items-center justify-center w-full h-full">
+                <h1 className="text-2xl font-bold text-center">No graded readers found</h1>
+                <p className="text-lg text-center">Please create a new one.</p>
+              </div>
+            )}
             {(gradedReaders.length > 0) &&
               gradedReaders.map((book, index) => (
                 <CardReader key={index} id={book.id} title={book.title} href={`graded-reader/${book.id}`} />

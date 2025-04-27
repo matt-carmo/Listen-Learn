@@ -1,5 +1,6 @@
 "use client";
 
+import { EditContentBlockModal } from "@/app/components/edit-content-block-modal";
 import InputBold from "@/app/components/inputBold";
 import { CardPhrase } from "@/components/cardPhrase";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -85,10 +86,10 @@ export default function DetailsGradedReader() {
     getAllPhrases();
   }, [getAllPhrases]);
   return (
-    <div className="flex flex-col w-full p-8 pb-16 gap-5 sm:p-10 font-[family-name:var(--font-geist-sans)]">
+    <div className="flex flex-col w-full md:p-8 p-2  pb-16 gap-5 sm:p-10 font-[family-name:var(--font-geist-sans)]">
 
       {warning && (
-        <div className="flex w-full max-w-3xl mx-auto p-4 justify-between border bg-gray-200 rounded-lg mb-2 text-gray-800 font-bold">
+        <div className="flex w-full max-w-4xl mx-auto p-4 justify-between border bg-gray-200 rounded-lg mb-2 text-gray-800 font-bold">
           <p>
             Para deixar o texto <b>azul</b> envolva em <code>*TEXTO*</code>
           </p>
@@ -98,7 +99,7 @@ export default function DetailsGradedReader() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full max-w-3xl mx-auto">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full max-w-4xl mx-auto">
         <div className="flex flex-col space-y-2">
           <InputBold
             type="text"
@@ -115,7 +116,7 @@ export default function DetailsGradedReader() {
             onChange={(e) => setTranslation(e.target.value)}
             placeholder="Translation"
           />
-          <ComboboxDemo onValueChange={(value) => setAudioName(value)} />
+          <ComboboxDemo modal={true} onValueChange={(value) => setAudioName(value)} />
 
           <div className="flex items-center gap-2 mt-3">
             <Checkbox
@@ -137,22 +138,32 @@ export default function DetailsGradedReader() {
         </div>
       </form>
 
-      <ul ref={listPhrases} id="phrases" className="w-full max-w-3xl mx-auto mt-5 flex flex-col gap-2">
+      <ul ref={listPhrases} id="phrases" className="w-full max-w-4xl mx-auto mt-5 flex flex-col gap-2">
         {phrases.length > 0 &&
           phrases.map((book: GradedReader, index: number) => {
-            console.log(book);
             return (
               <li
                 draggable
+                // onClick={}
                 className="relative transition-all duration-1000 ease-in-out"
                 id={book.id}
                 onDragOver={() => handleDragOver(index)}
                 onDragStart={(e) => handleDragStart(e, index)}
                 key={book.id}
               >
-                <CardPhrase
-                  book={book}
-                />
+                   <CardPhrase
+                    book={book}
+                  />
+                <EditContentBlockModal 
+                
+                  textOriginal={book.originalText}
+                  textTranslated={book.translatedText}
+                  id={book.id}
+                  audioUrl={book.audioUrl}
+                >
+               
+                </EditContentBlockModal>
+
               </li>
             );
           })}

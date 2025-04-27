@@ -11,5 +11,5 @@ COPY ./back-end .
 RUN npm install -g ts-node typescript
 EXPOSE 3000
 
-ENV ADDRESS=0.0.0.0 PORT=3000
+ENV ADDRESS=0.0.0.0 PORT=3001
 

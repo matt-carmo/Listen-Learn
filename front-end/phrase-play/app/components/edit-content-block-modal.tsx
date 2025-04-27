@@ -36,7 +36,7 @@ export function EditContentBlockModal({
         body: JSON.stringify({
           originalText: original,
           translatedText: translated,
-          audioUrl: audio.split('-')[1],
+          audioUrl: audio,
         }),
       });
       setOpen(false);

@@ -52,6 +52,10 @@ export const contentBlockController = {
         },
         where:{
           partId
+        },
+        orderBy: {
+          order: 'asc',
+          id: 'asc',
         }
       })
       return reply.status(200).send(data)

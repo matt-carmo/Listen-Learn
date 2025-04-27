@@ -9,7 +9,7 @@ export const contentBlockController = {
   ) {
     try {
       
-      const { originalText, translatedText,  audioUrl } = request.body
+      const { originalText, translatedText,  audioUrl, order } = request.body
       const { partId } = request.params
       const { prisma } = fastify
       if (!originalText.trim()) {
@@ -25,7 +25,7 @@ export const contentBlockController = {
           translatedText,
           audioUrl,
           partId,
-          order: 0,
+          order: order || null,
         },
       })
 
@@ -57,9 +57,6 @@ export const contentBlockController = {
           {
             order: 'asc'
           },
-          {
-            id: 'asc',
-          }
         ]
       })
       return reply.status(200).send(data)
